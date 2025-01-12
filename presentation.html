@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="node_modules/reveal.js/dist/reset.css">
+	<link rel="stylesheet" href="node_modules/reveal.js/dist/reveal.css">
+	<link rel="stylesheet" href="node_modules/reveal.js/dist/theme/white.css" id="theme">
+
+	<script src="node_modules/reveal.js/dist/reveal.js"></script>
+	<link rel="stylesheet" href="node_modules/reveal.js/plugin/highlight/monokai.css">
+	<script src="node_modules/reveal.js/plugin/highlight/highlight.js"></script>
+
+	<style>
+		body {
+			cursor: url('img/cursor.svg'), auto;
+		}
+
+		blockquote {
+			text-align: left;
+			font-size: .8em;
+		}
+
+		.left {
+			left: -8.33%;
+			float: left;
+			width: 50%;
+			z-index: -10;
+		}
+
+		.right {
+			left: 31.25%;
+			top: 75px;
+			text-align: right;
+			z-index: -10;
+			width: 50%;
+		}
+
+		.reveal h1,
+		.reveal h2,
+		.reveal h3,
+		.reveal h4,
+		.reveal h5,
+		.reveal h6 {
+			text-transform: none;
+		}
+
+		figcaption {
+			font-size: .6em;
+		}
+
+		.twoColumn {
+			display: grid;
+			grid-auto-flow: column;
+		}
+
+		.reveal .slide-number,
+		.slide-number-a {
+			color: black;
+			background-color: transparent;
+		}
+
+		.reveal pre {
+			width: 100%;
+		}
+	</style>
+
+	<title>Guse - Grundlagen Management der Informationssicherheit</title>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<!-- Introduction -->
+			<section>
+				<h2>Grundlagen Management der Informationssicherheit</h2>
+				<p></p>Dennis Guse</p>
+				<p><small>2025-01-21</small></p>
+			</section>
+
+			<!-- Engagement -->
+			<section>
+				<div class="twoColumn">
+					<div style="display: flex;flex-direction: column;justify-content: center;">
+						<h3>Frage:</h3>
+						Wie oft schaut ihr nach, ob Informationen über euch geleakt sind?
+					</div>
+
+					<div>
+						<figure>
+							<img src="img/hpi-leak-checker2.png" style="height: 10em" />
+							<figcaption>Fig.: <a href="https://sec.hpi.de/ilc">HPI Leak Checker</a><br>(Screenshot: 2025-01-19)</figcaption>
+						</figure>
+					</div>
+				</div>
+			</section>
+
+			<!-- Content -->
+			<section>
+				<h2>Inhalt</h2>
+				<ol>
+					<li class="fragment highlight-current-blue">Managementsystem für Informationssicherheit</li>
+					<ol>
+						<li>Notwendigkeit</li>
+						<li>Bestandteile</li>
+						<li>Beispiel: Schwachstellenmanagement</li>
+					</ol>
+
+					<li class="fragment highlight-current-blue">Zusammenfassung & Ausblick</li>
+					<li class="fragment highlight-current-blue">Übungsfragen</li>
+				</ol>
+			</section>
+
+			<section>
+				<h2>Was sind Informationen?</h2>
+
+				<figure>
+					<img src="img/information-storage-and-processing.svg" style="height: 10em" />
+				</figure>
+			</section>
+
+			<section>
+				<h2>Informationen in Unternehmen</h2>
+				<div class="twoColumn">
+					<div style="text-align: left;">
+						<u>Beispiel: Produktion eines Fahrzeuges</u>
+						<ul>
+							<li>Wie wird das Produkt hergestellt?</li>
+							<li>Welche Teile sind notwendig?</li>
+							<li>Wohin wird das Produkt geliefert?</li>
+						</ul>
+					</div>
+					<!-- Wir brauchen einen kurzes Beispiel fuer einen Geschaeftsprozess -->
+					<div>
+						<figure>
+							<img src="img/noun-car-manufacturing-7197381.svg" style="height: 10em">
+							<!-- https://thenounproject.com/icon/car-manufacturing-7197381/ -->
+						</figure>
+					</div>
+				</div>
+			</section>
+
+			<section>
+				<h2>Dimensionen des Schutzes</h2>
+				<ol>
+					<li class="fragment highlight-current-blue"><b>Confidentiality</b><br>Zugang zu Informationen</li>
+					<li class="fragment highlight-current-blue"><b>Integrity</b><br>Erstellung und Veränderung von Informationen</li>
+					<li class="fragment highlight-current-blue"><b>Availability</b><br>Verfügbarkeit von Informationen</li>
+				</ol>
+				<p><small>
+					Further reading:
+					<!-- THE CIA STRIKES BACK: REDEFINING CONFIDENTIALITY, INTEGRITY AND AVAILABILITY IN SECURITY-->
+					<a href="https://www.proso.com/dl/Samonas.pdf">[Samonas,2014]</a>,
+					<!-- SECURE COMPUTER SYSTEM: UNIFIED EXPOSITIO4 AND MULTICS INTERPRETATION-->
+					<a href="https://apps.dtic.mil/sti/tr/pdf/ADA023588.pdf">[Bell,1976]</a>
+				</small></p>
+			</section>
+
+			<section>
+				<h2>Exkurs: Availability</h2>
+
+				<div class="twoColumn">
+					<div style="display: flex;flex-direction: column;justify-content: center;">
+						<b>Apollo 11: Videos (1969)</b>
+						<ul>
+							<li>Erste Mondlandung</li>
+							<!--NTSC, RS-170A-->
+							<li>TV Ausstrahlung</li>
+							<li>Videoaufnahmen auf Tapes gespeichert</li>
+							<!-- 
+							Suche starte 1997; nachdem ein Polaroid aufgetaucht ist, welches eine deutlich bessere Qualitaet zeigte
+							1981: eingelagerte Tapes wurde gelöscht und wiederverwendet (Tape Shortage)
+							-->
+							<li class="fragment"><b>Erkenntnis 2006</b>: Aufnahmen existieren nicht mehr</li>
+						</ul>
+					</div>
+
+					<div>
+						<figure>
+							<img src="img/Apollo_11_TV_Tapes_Report.png" style="height: 8em" />
+							<figcaption>Fig.: Foto des übertragenen TV Signals (NASA)</figcaption>
+						</figure>
+					</div>
+				</div>
+
+				<p><small>
+					<a href="https://www.nasa.gov/wp-content/uploads/static/history/alsj/a11/Apollo_11_TV_Tapes_Report.pdf">[NASA,2009]</a>
+				</small></p>
+			</section>
+
+			<section>
+				<h2>Exkurs: Availability</h2>
+
+				<div>
+					<b>Toyota: Update-Incident (2023)</b>
+					<ul>
+						<li>Ausfall IT-System für Logistik</li>
+						<!-- 
+						Update installiert: Rollback mangels Speicherplatz
+						-->
+						<li>Ursache: Update Betriebssystem fehlgeschlagen<br>(Limitierter Festplattenspeicher)</li>
+						<li class="fragment">14x Werke stellen für einen Tag Betrieb ein</li>
+					</ul>
+				</div>
+
+				<p><small>
+					<a href="https://www.reuters.com/business/autos-transportation/toyota-says-plant-shutdown-last-week-due-server-malfunction-2023-09-06/">[Reuters,2023]</a>
+				</small></p>
+			</section>
+
+			<section data-visibility="hidden">
+				<section>
+					<h2>Definition: Managementsystem</h2>
+
+					<blockquote>
+					Satz zusammenhängender oder sich gegenseitig beeinflussender Elemente einer Organisation, um Politiken, Ziele und Prozesse zum Erreichen dieser Ziele festzulegen.
+					</blockquote>
+
+					<!-- <blockquote>
+					set of interrelated or interacting elements of an organization (3.2.1) to establish policies (3.5.8) and objectives (3.7.1), and processes (3.4.1) to achieve those objectives
+					</blockquote> -->
+
+					<blockquote>
+					Absichten und Ausrichtung einer Organisation, wie von der obersten Leitung formell ausgedrückt.
+					</blockquote>
+					
+					Quelle: <a href="https://www.din.de/de/wdc-beuth:din21:235671064">[ISO 9000, 2015]</a>
+				</section>
+
+				<section>
+					<h2>Bestandteile eines Managementsystems</h2>
+					<ul>
+						<!-- TODO Organigramm? -->
+						<li>Struktur der Organisation</li>
+						<li>Rollen und Verantwortlichkeiten</li>
+						<li>Planung</li>
+						<li>Betrieb</li>
+						<li>Ziele</li>
+						<li>Prozesse zum Erreichen dieser Ziele</li>
+					</ul>
+
+					<!-- <blockquote>
+					Die Elemente des Managementsystems beinhalten die Struktur der Organisation, Rollen und Verantwortlichkeiten, Planung, Betrieb, Politiken, Praktiken, Regeln, Überzeugungen, Ziele und Prozesse zum Erreichen dieser Ziele.
+					</blockquote> -->
+					
+					<p>
+					Quelle: <a href="https://www.din.de/de/wdc-beuth:din21:235671064">[ISO 9000, 2015]</a>
+					</p>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>Managementsystem der Informationssicherheit<br>(ISMS)</h2>
+				</section>
+
+				<section>
+					<h3>Organisationen jeder Art und Größe:</h3>
+					<blockquote>
+						<ol>
+							<li>sammeln, verarbeiten, speichern und übermitteln Informationen;</li>
+							<li>betrachten Informationen [...] und Personen als <u>wichtige Werte</u>, die für das Erreichen der <u>Organisationsziele</u> notwendig sind;</li>
+						</ol>
+					</blockquote>
+					
+					<p><small>
+						Quelle: <a href="https://www.din.de/de/wdc-beuth:din21:235671064">[ISO/IEC 27000, 2020]</a>
+					</p></small>
+				</section>
+				<section>
+					<h3>Organisationen jeder Art und Größe:</h3>
+					<blockquote>
+						<ol start="3">
+							<li>sind mit einer Reihe von <u>Risiken</u> konfrontiert, welche die Funktionsfähigkeit von Werten beeinträchtigen können; und</li>
+							<li>begegnen ihrem bekannten Gefährdungspotential mit der Einführung von <u>Informationssicherheitsmaßnahmen</u></li>
+						</ol>
+					</blockquote>
+
+					<p><small>
+						Quelle: <a href="https://www.din.de/de/wdc-beuth:din21:235671064">[ISO/IEC 27000, 2020]</a>
+					</p></small>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>Ziel eines ISMS</h2>
+					<u>Informationswerte</u> einer Organisation müssen vor <u>Gefahren</u> <u>adäquat geschützt</u> werden.
+				</section>
+				<section>
+					<h2>Beispiel Informationswerte:</h2>
+					<ul>
+						<!-- Coca Cola Formel -->
+						<li>Betriebsgeheimnisse</li> 
+						<li>Firmenstrategie</li>
+						<li>Menü der Kantine</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Beispiel für Gefahren:</h2>
+					<ul>
+						<li>Naturkatastrophen</li>
+						<li>Cyberangriffe und -sabotage</li>
+						<li>Defekte Hardware</li>
+						<li>Verlust von Hardware</li>
+					</ul>
+
+
+					<p><small>
+						Weiterführend BSI zu <a href="https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/IT-Grundschutz-Kompendium/Elementare-Gefaehrdungen/elementare_gefaehrdungen.html">elementare Gefährdungen</a>
+					</p></small>
+				</section>
+
+				<section>
+					<h2>Was ist ein Risiko?</h2>
+					<figure>
+						<img src="img/informationswert-gefahr.svg" />
+						<figcaption>Fig.: Foto des übertragenen TV Signals (NASA)</figcaption>
+					</figure>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>Woraus besteht ein ISMS?</h2>
+
+					Maßgeblicher Standard: <a href="https://www.din.de/de/wdc-beuth:din21:370680635"></a>ISO/IEC 27001</a>
+				</section>
+
+				<section>
+					<h3>Informationssicherheitsziele</h3>
+					Welche Informationswerte will bzw. muss die Organisation schützen?
+				</section>
+
+				<section>
+					<h3>Informationssicherheits-<br>maßnahmen</h3>
+					Bewährte Maßnahmen sind in <a href="https://www.din.de/de/wdc-beuth:din21:370680635"></a>ISO/IEC 27001 Anhang A</a> aufgelistet.
+					
+					<p><small>
+						(Maßnahmen nach ISO/IEC 27001: engl. Controls)
+					</small></p>
+				</section>
+
+				<section>
+					<h3>Anwendbarkeitserklärung</h3>
+					Welche Maßnahmen müssen zum Erreichen der Informationssicherheitsziele umgesetzt werden?
+				</section>
+
+				<section>
+					<h3>Anwendungsbereich</h3>
+					Für welchen Teil gilt das ISMS der Organisation?
+				</section>
+				
+				<section>
+					<h3>Rollen</h3>
+					Welche Personen in der Organisation führen Tätigkeiten zum Erreichen der Informationssicherheitsziele aus?
+				</section>
+
+				<section>
+					<h3>Verantwortlichkeiten</h3>
+					Wer ist für die Ausführung der Tätigkeiten verantwortlich?
+				</section>
+			</section>
+
+
+			<section>
+				<section>
+					<h3>Ein Beispiel?</h3>
+				</section>
+
+				<section>
+					<div class="twoColumn">
+						<div style="display: flex;flex-direction: column;justify-content: center;">
+							<h2>Beispiel: Server</h2>
+							<ul>
+								<li>Hostet Webshop <br>
+								Zielgruppe: B2C Kunden</li>
+								<li>Speichert Produkt- und Kundendaten</li>
+							</ul>
+						</div>
+
+						<div>
+							<figure>
+								<img src="img/noun-server-7378787.svg" style="height: 8em" />
+							</figure>
+						</div>
+					</div>
+				</section>
+				<section>
+					<h2>Maßnahme: Handhabung von technischen Schwachstellen</h2>
+					<div class="twoColumn">
+						<div style="display: flex;flex-direction: column;justify-content: center;">
+							<blockquote>
+								Es müssen Informationen über technische Schwachstellen verwendeter Informationssysteme eingeholt, 
+								die Gefährdung der Organisation durch derartige Schwachstellen bewertet und angemessene Maßnahmen ergriffen werden.
+							</blockquote>
+
+							<p><small>
+								<a href="https://www.din.de/de/wdc-beuth:din21:370680635">[ISO/IEC 27001, 2022]</a>
+							</small></p>
+						</div>
+						<div>
+							<figure>
+								<img src="img/xkcd_dependency_2x.png" style="height: 10em">
+								<figcaption>Fig.: Dependency <a href=",https://xkcd.com/2347/">[xkcd: 2347]</a></figcaption>
+							</figure>
+						</div>
+					</div>
+				</section>
+				<section>
+					<h2>Umsetzung: Handhabung von technischen Schwachstellen</h2>
+					<ol>
+						<li>Welche Software inkl. Version?</li>
+						<li>Welche Abhängigkeiten/ Bibliotheken?</li>
+						<li>Abgleich mit bekannten Schwachstellen</li>
+						<li>Bewertung der Schwachstellen</li>
+						<li>Einleitung von Gegenmaßnahmen</li>
+					</ol>
+				</section>
+				<section>
+					<h2>Schwachstellen: Log4j</h2>
+
+					<div class="twoColumn">
+						<div style="display: flex;flex-direction: column;justify-content: center;">
+							<ul>
+								<li>Bibliothek für Logging (Java)</li>
+								<li>Dez. 2021: remote code execution</li>
+								<li><a href="https://www.bsi.bund.de/SharedDocs/Cybersicherheitswarnungen/DE/2021/2021-549032-10F2.pdf?__blob=publicationFile&v=10">BSI Report</a></li>
+							</ul>
+						</div>
+						<div>
+							<figure>
+								<img src="img/xkcd_dependency_2x.png" style="height: 10em">
+								<figcaption>Fig.: Dependency <a href=",https://xkcd.com/2347/">[xkcd: 2347]</a></figcaption>
+							</figure>
+						</div>
+					</div>
+				</section>
+			</section>
+
+			<section>
+				<h2>Zusammenfassung</h2>
+
+				<ul>
+					<li>Informationswert: Gefahr, Risiko, Schaden</li>
+					<li>CIA-Triade</li>
+					<li>ISMS: Ziel und Bestandsteile</li>
+					<li>ISO/IEC 27001</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>Ausblick</h2>
+
+				<ul>
+					<li>Assetmanagement und Risikomanagement</li>
+					<li>Kontinuierliche Verbesserung</li>
+					<li>Überblick Maßnahmen nach ISO/IEC 27001</li>
+					<li>Vorgehen zur Implementierung eines ISMS</li>
+					<li>Weitere relevante Standards</li>
+					<li>Best Practices</li>
+					<li>Zertifizierung</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>Übungsfragen</h2>
+				<ol type="a">
+					<li class="fragment">Wofür steht das <b>I</b> in der <u>CIA-Triade</u>?</li>
+					<li class="fragment">Beeinflussen sich die einzelnen Schutzziele der CIA-Triade?</li>
+					<li class="fragment">Welche ISO/IEC-Standardfamilie beschreibt Informationssicherheit?</li>
+					<li class="fragment">(Bonus) Welcher ISO/IEC-Standard definiert <b>Managementsystem</b>?<br>(Tipp: nicht ISO/IEC27xxx)</li>
+				</ol>
+			</section>
+
+			<!-- Abschluss -->
+			<section>
+				<h2>Teilziel eines ISMS</h2>
+				<figure>
+					<img src="img/Internet_dog.jpeg" style="height: 10em">
+					<figcaption>Fig.: "On the Internet nobody knows you're a dog" <a href="">[Steiner,1993]</a></figcaption>
+				</figure>
+			</section>
+
+			<script>
+				// More info https://github.com/hakimel/reveal.js#configuration
+				Reveal.initialize({
+					controls: true,
+					progress: true,
+					center: true,
+					hash: true,
+					jumpToSlide: true,
+
+					slideNumber: true,
+
+					transition: 'fade', // none/fade/slide/convex/concave/zoom
+					transitionSpeed: 'slow', // default/fast/slow
+
+					// More info https://github.com/hakimel/reveal.js#dependencies
+					plugins: []
+				});
+
+			</script>
+
+</body>
+
+</html>
